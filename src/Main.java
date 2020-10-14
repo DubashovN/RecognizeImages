@@ -1,27 +1,17 @@
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //    visitFiles(Paths.get(args[0]));
 
-
-//        BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
-//        image.setRGB(10, 10, Color.YELLOW.getRGB());
-//        System.out.println(image.getRGB(10, 10));
-//
-//        JFrame frame = new JFrame();
-//        frame.setSize(100, 100);
-//        frame.setUndecorated(true);
-//        frame.setLocationRelativeTo(null);
-//        frame.setVisible(true);
-//        JLabel label = new JLabel(new ImageIcon(image));
-//        label.setBounds(0, 0, 100, 100);
-//        frame.add(label);
     }
 
     private static void visitFiles(Path path) {
@@ -39,10 +29,10 @@ public class Main {
                     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs){
                         try {
                             BufferedImage image = ImageIO.read(file.toFile());
-                            int height = image.getHeight();
-                            int width = image.getWidth();
-                            BufferedImage img1 = image.getSubimage();
-
+                            // cutting part of image with cards and saving it
+                            BufferedImage img1 = image.getSubimage(140,580, 350, 100);
+                            File output = new File("2.png");
+                            ImageIO.write(img1, "png", output);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
